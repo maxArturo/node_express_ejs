@@ -1,0 +1,12 @@
+/*
+    http://jshint.com/docs/options/
+    http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
+*/
+
+{
+    "strict": false,
+    "eqeqeq": true,
+    "freeze": true,
+    "quotmark": "single",
+    "trailing": true
+}

@@ -1,12 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var videoData = require('../video_data.json');
 
-/* GET json page. */
+/* GET test_test page. */
 router.get('/', function(req, res, next) {
-  res.render('json', {
-    title: 'JSON',
-    videoData: videoData,
+  res.render('js_include_test', {
+    title: 'JS Include Test',
   });
 });
 
