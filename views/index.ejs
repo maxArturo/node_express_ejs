@@ -2,12 +2,17 @@
 <html>
   <head>
     <title><%= title %> | <%= appName %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='stylesheets/base.css' />
+    <link rel='stylesheet' href='stylesheets/bootstrap.min.css' />
+    <script type="text/javascript" src="/javascripts/base.js"></script>
   </head>
   <body>
-    <h1><%= appName %></h1>
     <% include templates/header.ejs %>
-    <h2><%= title %></h2>
-    <p>Welcome to <%= title %></p>
+    <div class='container'>
+      <div class='col-md-12 text-center'>
+        <h1><%= title %></h1>
+        <p>Welcome to the <%= title.toLowerCase() %> page.</p>
+      </div>
+    </div>
   </body>
 </html>
