@@ -99,5 +99,6 @@ module.exports = function(grunt) {
 
   // other tasks
   grunt.registerTask('reset', ['clean']);
+  grunt.registerTask('deploy', ['clean','copy','browserify']);
 
 };
