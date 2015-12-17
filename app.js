@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var about = require('./routes/about');
-var json = require('./routes/json');
 var browserifyTest = require('./routes/browserify_test');
 
 var app = express();
@@ -28,7 +27,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/about', about);
-app.use('/json', json);
 app.use('/browserify_test', browserifyTest);
 
 // catch 404 and forward to error handler

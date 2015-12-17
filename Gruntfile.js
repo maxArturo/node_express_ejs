@@ -3,52 +3,101 @@ module.exports = function(grunt) {
   // project configuration
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    clean: {
+      // clean public sub-folders
+      data: ['public/data/*', '!public/data/*.gitignore'],
+      images: ['public/images/*', '!public/images/*.gitignore'],
+      javascripts: ['public/javascripts/*', '!public/javascripts/*.gitignore'],
+      stylesheets: ['public/stylesheets/*', '!public/stylesheets/*.gitignore']
+    },
     copy: {
       // copy base css
+      // TODO: SASS
       baseCSS: {
         files: {
-          'public/stylesheets/base.css': 'application/stylesheets/base.css',
-          'public/stylesheets/bootstrap.min.css': 'node_modules/bootstrap/dist/css/bootstrap.min.css'
+          'public/stylesheets/app.css': 'application/stylesheets/app.css'
         }
+      },
+      // copy vendor css
+      vendorCSS: {
+        files: {
+          'public/stylesheets/vendor/bootstrap.min.css': 'node_modules/bootstrap/dist/css/bootstrap.min.css'
+        }
+      },
+      // copy data files
+      data: {
+        cwd: 'application/data',
+        src: '**/*',
+        dest: 'public/data',
+        expand: true
+      },
+      // copy image files
+      images: {
+        cwd: 'application/images',
+        src: '**/*',
+        dest: 'public/images',
+        expand: true
       }
     },
     browserify: {
-      //copy base js
-      'public/javascripts/base.js': ['application/javascripts/base.js'],
-      // copy view specific js
-      'public/javascripts/browserify_test.js': ['application/javascripts/browserify_test.js']
-    },
-    watch: {
-      baseCSS: {
-        files: ["application/**/*.css"],
-        tasks: ["copy:baseCSS"]
+      // generate base js
+      baseJS: {
+        files: {
+          'public/javascripts/app.js': ['application/javascripts/app.js']
+        }
       },
-      browserifyScrpits: {
-        files: ["application/**/*.js"],
-        tasks: ["browserify"]
-      },
-      lintExpressRoutes: {
-        files: ["routes/*.js"],
-        tasks: ["jshint:lintRoutes"]
+      // generate view specific js
+      viewsJS: {
+        files: {
+          'public/javascripts/views/browserify_test.js': ['application/javascripts/views/browserify_test.js']
+        }
       }
     },
     jshint: {
-      options: {
-        jshintrc: ".jshintrc"
+      all: ['application/javascripts/**/*.js','routes/*.js'],
+      base: ['application/javascripts/app.js'],
+      views: ['application/javascripts/views/*.js'],
+      routes: ['routes/*.js']
+    },
+    jscs: {
+      all: ['application/javascripts/**/*.js','routes/*.js'],
+      base: ['application/javascripts/app.js'],
+      views: ['application/javascripts/views/*.js'],
+      routes: ['routes/*.js']
+    },
+    watch: {
+      baseCSS: { // TODO: SASS
+        files: ['application/stylesheets/app.css'],
+        tasks: ['copy:baseCSS']
       },
-      lintRoutes: ["routes/*.js"]
+      baseJS: {
+        files: ['application/javascripts/app.js'],
+        tasks: ['jshint:base','jscs:base','browserify:baseJS']
+      },
+      viewsJS: {
+        files: ['application/javascripts/views/*.js'],
+        tasks: ['jshint:views','jscs:views','browserify:viewsJS']
+      },
+      routesJS: {
+        files: ['routes/*.js'],
+        tasks: ['jshint:routes','jscs:routes']
+      }
     }
   });
 
   // load plugins
-  grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-jscs');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks("grunt-jscs");
+  grunt.loadNpmTasks('grunt-contrib-uglify'); // TODO
 
-  // default tasks
-  grunt.registerTask('default', ['copy','browserify','watch']);
+  // default task
+  grunt.registerTask('default', ['clean','copy','jshint:all','jscs:all','browserify','watch']);
+
+  // other tasks
+  grunt.registerTask('reset', ['clean']);
 
 };

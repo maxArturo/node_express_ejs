@@ -1,9 +1,9 @@
-#Learning Node
+# Exploring Node.js
 ## About
 
-This is a Node.js server, which I've been using to explore different configurations, NPM packages, etc. These are the high-level steps I've taken thus far:
+This is a Node project, which I've been using to explore different server configurations, NPM packages, etc. These are the high-level steps I've taken thus far:
 
-* started out with an implementation of Express and EJS ([ref](https://www.thenewboston.com/videos.php?cat=355))
+* started out with an implementation of the Express framework and EJS templating engine ([ref](https://www.thenewboston.com/videos.php?cat=355))
 * integrated Grunt with a simple JSHint watch task to get started ([ref](https://www.youtube.com/watch?v=7YFzYrllHkI))
 * experimented with, and ultimately abandoned, Bower for managing frontend libraries ([ref](https://medium.com/@nickheiner/why-my-team-uses-npm-instead-of-bower-eecfe1b9afcb#.eui39e8vb))
 * added Grunt/Browserify tasks to manage base and view specific NPM libraries for the frontend, including Bootstrap, jQuery, D3, Underscore and Moment ([ref](http://codeofrob.com/entries/grunt+browserify+npm+application=success.html))
@@ -14,20 +14,19 @@ This is a Node.js server, which I've been using to explore different configurati
 ## Setup
 * cd to node_express_ejs directory and run `$ npm install`
 
-## Server
-* cd to node_express_ejs directory and run `$ npm start`
-* navigate to `localhost:3000` in browser
-
 ## Build
-* in an second console window cd to node_express_ejs and run `$ grunt`, which will build assets from the application folder into the public folder, in addition to kicking off a few watch events (work in progress)
+run `$ grunt`, which will build assets from the application folder into the public folder, in addition to kicking off a few watch events
+
+## Server
+* in a second console window, cd to tje node_express_ejs directory and run `$ npm start`
+* navigate to `localhost:3000` in browser
 
 ## To do
 * Live development server reloading
-* Environment variables (nconf)
-* Expanded tasks (uglify, jscs, etc)
+* Environment variables with Grunt uglify for prod (nconf)
 * SASS
-* React
-* CRUD
-* Tests (Jasmine)
-* Stage on Heroku
+* React ([ref](https://blog.risingstack.com/the-react-way-getting-started-tutorial/))
+* CRUD with a database (PG or Mongo, tbd)
+* Tests (Jasmine with Jest)
+* Staging server (Heroku probably)
 * Production server build (Flightplan probably)
