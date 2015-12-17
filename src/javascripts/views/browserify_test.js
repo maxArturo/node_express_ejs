@@ -4,7 +4,7 @@ var moment = require('moment');
 
 $(document).ready(function() {
   // use jquery (from base.js)
-  $('p').css('color','red');
+  $('#js-p').css('color','red');
   // use d3
   d3.select('h1').style('color','blue');
   // use underscore
