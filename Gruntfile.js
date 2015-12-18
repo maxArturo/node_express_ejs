@@ -96,10 +96,6 @@ module.exports = function(grunt) {
       routesJS: {
         files: ['routes/*.js'],
         tasks: ['jshint:routes','jscs:routes']
-      },
-      publicFolder: {
-        files: ['public/**/*'],
-        tasks: ['publicEdited']
       }
     }
   });
@@ -118,10 +114,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['clean','copy','concat','jshint:all','jscs:all','browserify','watch']);
   grunt.registerTask('reset', ['clean']);
   grunt.registerTask('deploy', ['clean','copy','concat','browserify']);
-
-  // custom task if to warn if public folder is edited
-  grunt.registerTask('publicEdited', function() {
-    grunt.warn('A file has been edited in the public folder');
-  });
 
 };

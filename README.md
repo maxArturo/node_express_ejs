@@ -1,7 +1,7 @@
 # Exploring Node.js
 
 ## About
-This is a Node project, which I've been using to explore different server configurations, NPM packages, etc. The latest version is hosted on Heroku and can be viewed [here](https://node-express-ejs.herokuapp.com/)(it's on a free web dyno so it may take a second to spin up). These are the high-level steps I've taken thus far:
+This is a Node project, which I've been using to explore different server configurations, NPM packages, etc. The latest version is hosted on Heroku and can be viewed [here](https://node-express-ejs.herokuapp.com/) (it's on a free web dyno so it may take a second to spin up). These are the high-level steps I've taken thus far:
 
 * started out with an implementation of the Express framework and EJS templating engine by running `$ express --ejs node_express_ejs` in the console ([ref](https://www.thenewboston.com/videos.php?cat=355))
 * integrated Grunt with a simple JSHint watch task to get started ([ref](https://www.youtube.com/watch?v=7YFzYrllHkI))
