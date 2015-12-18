@@ -19,18 +19,18 @@ module.exports = function(grunt) {
           'public/stylesheets/app.css': 'src/stylesheets/app.css'
         },
       },
-      // copy font files (required by font-awesome)
-      fonts: {
-        cwd: 'node_modules/font-awesome/fonts',
-        src: '*',
-        dest: 'public/fonts',
-        expand: true
-      },
       // copy data files
       data: {
         cwd: 'src/data',
         src: '**/*',
         dest: 'public/data',
+        expand: true
+      },
+      // copy font files (required by font-awesome)
+      fonts: {
+        cwd: 'node_modules/font-awesome/fonts',
+        src: '*',
+        dest: 'public/fonts',
         expand: true
       },
       // copy image files

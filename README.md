@@ -1,4 +1,4 @@
-# Exploring Node.js
+# Exploring Node
 
 ## About
 This is a Node project, which I've been using to explore different server configurations, NPM packages, etc. The latest version is hosted on Heroku and can be viewed [here](https://node-express-ejs.herokuapp.com/) (it's on a free web dyno so it may take a second to spin up). These are the high-level steps I've taken thus far:
@@ -14,12 +14,12 @@ This is a Node project, which I've been using to explore different server config
 * cd to the node_express_ejs directory and run `$ npm install`
 * run `$ grunt`, which will build assets from the application folder into the public folder, in addition to kicking off a few watch events
 * in a second console window run `$ npm start` inside the node_express_ejs directory
-* navigate to `localhost:3000` in browser
+* navigate to `localhost:8080` in browser
 
 ## To do
 * Live development server reloading
 * SASS
 * React ([ref](https://blog.risingstack.com/the-react-way-getting-started-tutorial/))
-* CRUD with a database (PG or Mongo, tbd)
+* CRUD with a database
 * Tests (Jasmine with Jest)
 * Environment variables with Grunt uglify for prod (nconf)

@@ -1,0 +1,12 @@
+{
+  "verbose": false,
+  "watch": [
+    "app.js",
+    "src/javascripts"
+  ],
+  "ignore": [
+    "node_modules",
+    "public"
+  ],
+  "ext": "js"
+}
