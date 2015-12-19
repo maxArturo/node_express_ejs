@@ -18,8 +18,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-express-server": "^0.5.1",
     "grunt-jscs": "^2.5.0",
-    "grunt-parallel": "^0.4.1",
-    "grunt-preprocess": "^5.0.1"
+    "grunt-parallel": "^0.4.1"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -39,6 +38,7 @@
     "grunt-contrib-copy": "^0.8.2",
     "grunt-contrib-uglify": "~0.5.0",
     "grunt-env": "^0.4.4",
+    "grunt-preprocess": "^5.0.1",
     "jquery-browserify": "^1.8.1",
     "moment": "^2.10.6",
     "morgan": "~1.6.1",
