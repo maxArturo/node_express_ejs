@@ -1,2 +1,2 @@
 #!/bin/bash
-./node_modules/grunt-cli/bin/grunt deploy
+./node_modules/grunt-cli/bin/grunt prod

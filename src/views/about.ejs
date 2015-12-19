@@ -7,6 +7,9 @@
     <title><%= title %> | <%= appName %></title>
     <link rel='stylesheet' href='stylesheets/app.css'/>
     <link rel='stylesheet' href='stylesheets/vendor.min.css'/>
+    <!-- @if NODE_ENV == 'DEVELOPMENT' -->
+    <script src="//localhost:35729/livereload.js"></script>
+    <!-- @endif -->
     <script type="text/javascript" src="javascripts/app.js"></script>
   </head>
   <body>

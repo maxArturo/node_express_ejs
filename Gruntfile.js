@@ -1,15 +1,36 @@
-module.exports = function(grunt) {
-
+module.exports = function (grunt) {
   // project configuration
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    env : {
+      dev: {
+        NODE_ENV : 'DEVELOPMENT'
+      },
+      prod : {
+        NODE_ENV : 'PRODUCTION'
+      }
+    },
     clean: {
-      // clean public sub-folders
+      // clean folders built from src folder on build
       data: ['public/data/*', '!public/data/*.gitignore'],
       fonts: ['public/fonts/*', '!public/fonts/*.gitignore'],
       images: ['public/images/*', '!public/images/*.gitignore'],
       javascripts: ['public/javascripts/*', '!public/javascripts/*.gitignore'],
-      stylesheets: ['public/stylesheets/*', '!public/stylesheets/*.gitignore']
+      stylesheets: ['public/stylesheets/*', '!public/stylesheets/*.gitignore'],
+      views: ['views/*', '!views/*.gitignore']
+    },
+    preprocess: {
+      // preprocess view ejs files based on env
+      views: {
+        files : {
+          'views/templates/footer.ejs': 'src/views/templates/footer.ejs',
+          'views/templates/header.ejs': 'src/views/templates/header.ejs',
+          'views/about.ejs': 'src/views/about.ejs',
+          'views/browserify_test.ejs': 'src/views/browserify_test.ejs',
+          'views/error.ejs': 'src/views/error.ejs',
+          'views/index.ejs': 'src/views/index.ejs'
+        }
+      }
     },
     copy: {
       // copy base css
@@ -81,6 +102,11 @@ module.exports = function(grunt) {
       routes: ['routes/*.js']
     },
     watch: {
+      // various watch tasks to handle changes in src folder during dev
+      viewsEJS: {
+        files: ['src/views/**/*.ejs'],
+        tasks: ['preprocess:views']
+      },
       baseCSS: { // TODO: SASS
         files: ['src/stylesheets/app.css'],
         tasks: ['copy:baseCSS']
@@ -96,23 +122,100 @@ module.exports = function(grunt) {
       routesJS: {
         files: ['routes/*.js'],
         tasks: ['jshint:routes','jscs:routes']
+      },
+      frontend: {
+        // reload in browser when these files change
+        files: [
+          'views/**/*.ejs',
+          'public/stylesheets/**/*.css',
+          'public/javascripts/**/*.js'
+        ],
+        options: {
+          livereload: true
+        }
+      },
+      backend: {
+        files: [
+          // restart server when these files change
+          'app.js',
+          'routes/**/*.js'
+        ],
+        tasks: [
+          'express:web'
+        ],
+        options: {
+          spawn: false,
+          atBegin: true
+        }
+      }
+    },
+    parallel: {
+      // kick off dev server and watch tasks together
+      dev: {
+        options: {
+          stream: true
+        },
+        tasks: [
+          {
+            grunt: true,
+            args: ['watch:viewsEJS']
+          },
+          {
+            grunt: true,
+            args: ['watch:baseCSS']
+          },
+          {
+            grunt: true,
+            args: ['watch:baseJS']
+          },
+          {
+            grunt: true,
+            args: ['watch:viewsJS']
+          },
+          {
+            grunt: true,
+            args: ['watch:routesJS']
+          },
+          {
+            grunt: true,
+            args: ['watch:frontend']
+          },
+          {
+            grunt: true,
+            args: ['watch:backend']
+          }
+        ]
+      }
+    },
+    express: {
+      // dev server
+      options: {
+        port: 8080
+      },
+      web: {
+        options: {
+          script: 'bin/www'
+        }
       }
     }
   });
 
   // load plugins
+  grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-preprocess');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jscs');
+  grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-parallel');
   grunt.loadNpmTasks('grunt-contrib-uglify'); // TODO
 
   // task configurations
-  grunt.registerTask('default', ['clean','copy','concat','jshint:all','jscs:all','browserify','watch']);
+  grunt.registerTask('default', ['env:dev','clean','preprocess:views','copy','concat','jshint:all','jscs:all','browserify','parallel:dev']);
+  grunt.registerTask('prod', ['env:prod','clean','preprocess:views','copy','concat','browserify']);
   grunt.registerTask('reset', ['clean']);
-  grunt.registerTask('deploy', ['clean','copy','concat','browserify']);
-
 };
