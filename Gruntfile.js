@@ -197,6 +197,11 @@ module.exports = function (grunt) {
           script: 'bin/www'
         }
       }
+    },
+    open: {
+      dev: {
+        url: 'http://localhost:<%= express.options.port%>'
+      }
     }
   });
 
@@ -209,13 +214,14 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jscs');
-  grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-parallel');
+  grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-contrib-uglify'); // TODO
 
   // task configurations
-  grunt.registerTask('default', ['env:dev','clean','preprocess:views','copy','concat','jshint:all','jscs:all','browserify','parallel:dev']);
+  grunt.registerTask('default', ['env:dev','clean','preprocess:views','copy','concat','jshint:all','jscs:all','browserify','open','parallel:dev']);
   grunt.registerTask('prod', ['env:prod','clean','preprocess:views','copy','concat','browserify']);
   grunt.registerTask('reset', ['clean']);
 };
