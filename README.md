@@ -12,11 +12,12 @@ This is a Node project, which I've been using to explore different server config
 * configured dev and prod environment variables ([ref](http://stackoverflow.com/questions/12401998/have-grunt-generate-index-html-for-different-setups))
 * added frontend liveloading and webserver restarting in dev ([ref](http://thanpol.as/grunt/Grunt-with-express-server-and-Livereload))
 * configured an uglify Grunt task in prod with package.json version in script src paths for cache busting ([ref](https://www.youtube.com/watch?v=bntNYzCrzvE))
-* integrate SASS ([ref](http://culttt.com/2013/11/18/setting-sass-grunt))
+* integrate SASS with .buildpacks, Gemfile and Gemfile.lock files for Ruby to install on Heroku deployment ([ref](http://stackoverflow.com/questions/15890076/how-to-setup-gruntfile-to-use-compass-sass-on-heroku/30073828#30073828))
 
 ## Development
 * cd to the node_express_ejs directory and run `$ npm install`
 * run `$ grunt`, which will build assets from the src folder into the public and views folders, kick off some watch tasks (frontend liveloading, webserver restarting, etc), spin up the webserver and open [localhost:8080](http://localhost:8080) in the browser
+* *Note:* Ruby needs to be installed locally in order to run SASS tasks (test with `$ ruby -v` in the console)
 
 ## Production
 * cd to the node_express_ejs directory and run `$ npm install`
