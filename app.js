@@ -12,8 +12,8 @@ var browserifyTest = require('./routes/browserify_test');
 
 var app = express();
 
-app.locals.appName = 'Exploring Node';
-app.locals.version = package.version;
+app.locals.appName = package.name;
+app.locals.appVersion = package.version;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'public/views'));

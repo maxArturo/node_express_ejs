@@ -21,27 +21,7 @@ module.exports = function(grunt) {
       stylesheets: ['public/stylesheets/*', '!public/stylesheets/*.gitignore'],
       views: ['public/views/*', '!public/views/*.gitignore']
     },
-    preprocess: {
-      // preprocess view ejs files based on env
-      views: {
-        files: {
-          'public/views/templates/footer.ejs': 'src/views/templates/footer.ejs',
-          'public/views/templates/header.ejs': 'src/views/templates/header.ejs',
-          'public/views/about.ejs': 'src/views/about.ejs',
-          'public/views/browserify_test.ejs': 'src/views/browserify_test.ejs',
-          'public/views/error.ejs': 'src/views/error.ejs',
-          'public/views/index.ejs': 'src/views/index.ejs'
-        }
-      }
-    },
     copy: {
-      // copy base css
-      // TODO: SASS
-      baseCSS: {
-        files: {
-          'public/stylesheets/app.css': 'src/stylesheets/app.css'
-        },
-      },
       // copy data files
       data: {
         cwd: 'src/data',
@@ -56,12 +36,47 @@ module.exports = function(grunt) {
         dest: 'public/fonts',
         expand: true
       },
-      // copy image files (TODO: imagemin with optimizationLevel3)
+      // copy image files (TODO: imagemin with optimizationLevel 3)
       images: {
         cwd: 'src/images',
         src: '**/*',
         dest: 'public/images',
         expand: true
+      }
+    },
+    preprocess: {
+      // preprocess view ejs files based on env
+      views: {
+        files: {
+          'public/views/templates/footer.ejs': 'src/views/templates/footer.ejs',
+          'public/views/templates/header.ejs': 'src/views/templates/header.ejs',
+          'public/views/about.ejs': 'src/views/about.ejs',
+          'public/views/browserify_test.ejs': 'src/views/browserify_test.ejs',
+          'public/views/error.ejs': 'src/views/error.ejs',
+          'public/views/index.ejs': 'src/views/index.ejs'
+        }
+      }
+    },
+    sass: {
+      dev: {
+        options: {
+          style: 'expanded',
+          sourcemap: 'none'
+        },
+        files: {
+          'public/stylesheets/app.css': 'src/stylesheets/app.scss'
+        }
+      },
+      prod: {
+        options: {
+          style: 'compressed',
+          sourcemap: 'none'
+        },
+        files: {
+          'public/stylesheets/app.<%= pkg.version %>.min.css': [
+            'src/stylesheets/app.scss'
+          ]
+        }
       }
     },
     concat: {
@@ -130,9 +145,9 @@ module.exports = function(grunt) {
         files: ['src/views/**/*.ejs'],
         tasks: ['preprocess:views']
       },
-      baseCSS: { // TODO: SASS
-        files: ['src/stylesheets/app.css'],
-        tasks: ['copy:baseCSS']
+      baseCSS: {
+        files: ['src/stylesheets/**/*.scss'],
+        tasks: ['sass:dev']
       },
       baseJS: {
         files: ['src/javascripts/app.js'],
@@ -232,8 +247,9 @@ module.exports = function(grunt) {
   // load plugins
   grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-preprocess');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-preprocess');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jscs');
@@ -245,11 +261,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-open');
 
   // task configurations
-  grunt.registerTask('default', ['env:dev','clean','preprocess:views','copy',
-    'concat','jshint:all','jscs:all','browserify','open:dev','parallel:dev'
+  grunt.registerTask('default', ['env:dev','clean','copy','preprocess:views',
+    'sass:dev','concat','jshint:all','jscs:all','browserify','open:dev',
+    'parallel:dev'
   ]);
-  grunt.registerTask('prod', ['env:prod','clean','preprocess:views','copy',
-    'concat','browserify','uglify:prod'
+  grunt.registerTask('prod', ['env:prod','clean','copy','preprocess:views',
+    'sass:prod','concat','browserify','uglify:prod'
   ]);
   grunt.registerTask('reset', ['clean']);
 };

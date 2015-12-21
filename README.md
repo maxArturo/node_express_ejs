@@ -11,7 +11,8 @@ This is a Node project, which I've been using to explore different server config
 * setup Heroku deployment ([ref](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction))
 * configured dev and prod environment variables ([ref](http://stackoverflow.com/questions/12401998/have-grunt-generate-index-html-for-different-setups))
 * added frontend liveloading and webserver restarting in dev ([ref](http://thanpol.as/grunt/Grunt-with-express-server-and-Livereload))
-* add uglify Grunt task in prod with package.json version in script src paths for cache busting ([ref](https://www.youtube.com/watch?v=bntNYzCrzvE))
+* configured an uglify Grunt task in prod with package.json version in script src paths for cache busting ([ref](https://www.youtube.com/watch?v=bntNYzCrzvE))
+* integrate SASS ([ref](http://culttt.com/2013/11/18/setting-sass-grunt))
 
 ## Development
 * cd to the node_express_ejs directory and run `$ npm install`
@@ -24,7 +25,6 @@ This is a Node project, which I've been using to explore different server config
 * navigate to [localhost:8080](http://localhost:8080) in the browser
 
 ## To do
-* SASS
 * CRUD with a database
 * React ([ref](https://blog.risingstack.com/the-react-way-getting-started-tutorial/))
 * Tests (Jasmine with Jest)
