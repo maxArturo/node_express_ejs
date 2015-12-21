@@ -7,10 +7,11 @@ This is a Node project, which I've been using to explore different server config
 * integrated Grunt with a simple JSHint watch to get started with tasks ([ref](https://www.youtube.com/watch?v=7YFzYrllHkI))
 * experimented with, and ultimately abandoned, Bower for managing frontend libraries ([ref](https://medium.com/@nickheiner/why-my-team-uses-npm-instead-of-bower-eecfe1b9afcb#.eui39e8vb))
 * added Grunt/Browserify tasks to manage base and view specific NPM libraries for the frontend, including Bootstrap, jQuery, D3, Underscore and Moment ([ref](http://codeofrob.com/entries/grunt+browserify+npm+application=success.html))
-* built out a src/public file structure with basic Grunt development and deployment tasks
+* built out a src/public file structure with basic dev and prod Grunt tasks
 * setup Heroku deployment ([ref](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction))
-* configured environment variables ([ref](http://stackoverflow.com/questions/12401998/have-grunt-generate-index-html-for-different-setups))
+* configured dev and prod environment variables ([ref](http://stackoverflow.com/questions/12401998/have-grunt-generate-index-html-for-different-setups))
 * added frontend liveloading and webserver restarting in dev ([ref](http://thanpol.as/grunt/Grunt-with-express-server-and-Livereload))
+* add uglify Grunt task in prod with package.json version in script src paths for cache busting ([ref](https://www.youtube.com/watch?v=bntNYzCrzvE))
 
 ## Development
 * cd to the node_express_ejs directory and run `$ npm install`
@@ -23,7 +24,6 @@ This is a Node project, which I've been using to explore different server config
 * navigate to [localhost:8080](http://localhost:8080) in the browser
 
 ## To do
-* Uglify in prododuction
 * SASS
 * CRUD with a database
 * React ([ref](https://blog.risingstack.com/the-react-way-getting-started-tutorial/))

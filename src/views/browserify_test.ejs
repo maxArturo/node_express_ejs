@@ -9,9 +9,13 @@
     <link rel='stylesheet' href='stylesheets/vendor.min.css'/>
     <!-- @if NODE_ENV == 'DEVELOPMENT' -->
     <script src="//localhost:35729/livereload.js"></script>
-    <!-- @endif -->
     <script type="text/javascript" src="javascripts/app.js"></script>
     <script type="text/javascript" src="javascripts/views/browserify_test.js"></script>
+    <!-- @endif -->
+    <!-- @if NODE_ENV == 'PRODUCTION' -->
+    <script type="text/javascript" src="javascripts/app.<%= version %>.min.js"></script>
+    <script type="text/javascript" src="javascripts/views/browserify_test.<%= version %>.min.js"></script>
+    <!-- @endif -->
   </head>
   <body>
     <% include templates/header.ejs %>

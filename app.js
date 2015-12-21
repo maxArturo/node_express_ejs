@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var package = require('./package.json');
 
 var index = require('./routes/index');
 var about = require('./routes/about');
@@ -12,9 +13,10 @@ var browserifyTest = require('./routes/browserify_test');
 var app = express();
 
 app.locals.appName = 'Exploring Node';
+app.locals.version = package.version;
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'ejs');
 
 app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));

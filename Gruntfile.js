@@ -1,34 +1,36 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
   // project configuration
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    env : {
+    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+      '<%= grunt.template.today("yyyy-mm-dd") %> */\n\n',
+    env: {
       dev: {
-        NODE_ENV : 'DEVELOPMENT'
+        NODE_ENV: 'DEVELOPMENT'
       },
-      prod : {
-        NODE_ENV : 'PRODUCTION'
+      prod: {
+        NODE_ENV: 'PRODUCTION'
       }
     },
     clean: {
-      // clean folders built from src folder on build
+      // clean folders built from src folder
       data: ['public/data/*', '!public/data/*.gitignore'],
       fonts: ['public/fonts/*', '!public/fonts/*.gitignore'],
       images: ['public/images/*', '!public/images/*.gitignore'],
       javascripts: ['public/javascripts/*', '!public/javascripts/*.gitignore'],
       stylesheets: ['public/stylesheets/*', '!public/stylesheets/*.gitignore'],
-      views: ['views/*', '!views/*.gitignore']
+      views: ['public/views/*', '!public/views/*.gitignore']
     },
     preprocess: {
       // preprocess view ejs files based on env
       views: {
-        files : {
-          'views/templates/footer.ejs': 'src/views/templates/footer.ejs',
-          'views/templates/header.ejs': 'src/views/templates/header.ejs',
-          'views/about.ejs': 'src/views/about.ejs',
-          'views/browserify_test.ejs': 'src/views/browserify_test.ejs',
-          'views/error.ejs': 'src/views/error.ejs',
-          'views/index.ejs': 'src/views/index.ejs'
+        files: {
+          'public/views/templates/footer.ejs': 'src/views/templates/footer.ejs',
+          'public/views/templates/header.ejs': 'src/views/templates/header.ejs',
+          'public/views/about.ejs': 'src/views/about.ejs',
+          'public/views/browserify_test.ejs': 'src/views/browserify_test.ejs',
+          'public/views/error.ejs': 'src/views/error.ejs',
+          'public/views/index.ejs': 'src/views/index.ejs'
         }
       }
     },
@@ -54,7 +56,7 @@ module.exports = function (grunt) {
         dest: 'public/fonts',
         expand: true
       },
-      // copy image files
+      // copy image files (TODO: imagemin with optimizationLevel3)
       images: {
         cwd: 'src/images',
         src: '**/*',
@@ -75,22 +77,8 @@ module.exports = function (grunt) {
         dest: 'public/stylesheets/vendor.min.css'
       }
     },
-    browserify: {
-      // generate base js
-      baseJS: {
-        files: {
-          'public/javascripts/app.js': ['src/javascripts/app.js']
-        }
-      },
-      // generate view specific js
-      viewsJS: {
-        files: {
-          'public/javascripts/views/browserify_test.js': ['src/javascripts/views/browserify_test.js']
-        }
-      }
-    },
     jshint: {
-      all: ['src/javascripts/**/*.js','routes/*.js'],
+      all: ['Gruntfile.js','src/javascripts/**/*.js','routes/*.js'],
       base: ['src/javascripts/app.js'],
       views: ['src/javascripts/views/*.js'],
       routes: ['routes/*.js']
@@ -101,8 +89,43 @@ module.exports = function (grunt) {
       views: ['src/javascripts/views/*.js'],
       routes: ['routes/*.js']
     },
+    browserify: {
+      // generate base js
+      baseJS: {
+        files: {
+          'public/javascripts/app.js': ['src/javascripts/app.js']
+        }
+      },
+      // generate view specific js
+      viewsJS: {
+        files: {
+          'public/javascripts/views/browserify_test.js': [
+            'src/javascripts/views/browserify_test.js'
+          ]
+        }
+      }
+    },
+    uglify: {
+      // uglify js with pkg.version in file names for cache busting in prod env
+      options: {
+        banner: '<%= banner %>',
+        compress: {
+          drop_console: true
+        }
+      },
+      prod: {
+        files: {
+          'public/javascripts/app.<%= pkg.version %>.min.js': [
+            'public/javascripts/app.js'
+          ],
+          'public/javascripts/views/browserify_test.<%= pkg.version %>.min.js': [
+            'public/javascripts/views/browserify_test.js'
+          ]
+        }
+      }
+    },
     watch: {
-      // various watch tasks to handle changes in src folder during dev
+      // various watch tasks to handle changes in src folder in dev env
       viewsEJS: {
         files: ['src/views/**/*.ejs'],
         tasks: ['preprocess:views']
@@ -124,7 +147,7 @@ module.exports = function (grunt) {
         tasks: ['jshint:routes','jscs:routes']
       },
       frontend: {
-        // reload in browser when these files change
+        // reload browser when these files change
         files: [
           'views/**/*.ejs',
           'public/stylesheets/**/*.css',
@@ -141,7 +164,7 @@ module.exports = function (grunt) {
           'routes/**/*.js'
         ],
         tasks: [
-          'express:web'
+          'express:dev'
         ],
         options: {
           spawn: false,
@@ -150,7 +173,7 @@ module.exports = function (grunt) {
       }
     },
     parallel: {
-      // kick off dev server and watch tasks together
+      // kick off server and watch tasks together in dev env
       dev: {
         options: {
           stream: true
@@ -188,17 +211,18 @@ module.exports = function (grunt) {
       }
     },
     express: {
-      // dev server
+      // server for dev env
       options: {
         port: 8080
       },
-      web: {
+      dev: {
         options: {
           script: 'bin/www'
         }
       }
     },
     open: {
+      // open the browser in dev env
       dev: {
         url: 'http://localhost:<%= express.options.port%>'
       }
@@ -211,17 +235,21 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-preprocess');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jscs');
+  grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-parallel');
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-open');
-  grunt.loadNpmTasks('grunt-contrib-uglify'); // TODO
 
   // task configurations
-  grunt.registerTask('default', ['env:dev','clean','preprocess:views','copy','concat','jshint:all','jscs:all','browserify','open','parallel:dev']);
-  grunt.registerTask('prod', ['env:prod','clean','preprocess:views','copy','concat','browserify']);
+  grunt.registerTask('default', ['env:dev','clean','preprocess:views','copy',
+    'concat','jshint:all','jscs:all','browserify','open:dev','parallel:dev'
+  ]);
+  grunt.registerTask('prod', ['env:prod','clean','preprocess:views','copy',
+    'concat','browserify','uglify:prod'
+  ]);
   grunt.registerTask('reset', ['clean']);
 };
