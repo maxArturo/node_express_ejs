@@ -45,3 +45,6 @@ nvm alias default 4.2.3
 # install node_modules
 cd /vagrant
 npm install
+
+# TODO
+# http://blog.prolificinteractive.com/2015/01/21/getting-vagrant-nodejs-windows-play-well-together/
