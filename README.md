@@ -13,14 +13,20 @@ This is a Node project, which I've been using to explore different server config
 * added frontend liveloading and webserver restarting in dev ([ref](http://thanpol.as/grunt/Grunt-with-express-server-and-Livereload))
 * configured an uglify Grunt task in prod with package.json version in script src paths for cache busting ([ref](https://www.youtube.com/watch?v=bntNYzCrzvE))
 * integrate SASS with .buildpacks, Gemfile and Gemfile.lock files for Ruby to install on Heroku deployment ([ref](http://stackoverflow.com/questions/15890076/how-to-setup-gruntfile-to-use-compass-sass-on-heroku/30073828#30073828))
+* setup a virtual machine using Vagrant and VirtualBox (WIP: npm install permissions)
+
+## Virtual Machine (WIP: npm install permissions)
+* install [Vagrant](https://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* run `$ vagrant up`, which will download and provision the VM (install ruby, node/npm and the required node_modules)
+* run `$ vagrant ssh` to connect to the VM
+* run `$ cd /vagrant' to access the root directory
 
 ## Development
-* cd to the node_express_ejs directory and run `$ npm install`
+* run `$ npm install' to install the required node_modules
 * run `$ grunt`, which will build assets from the src folder into the public and views folders, kick off some watch tasks (frontend liveloading, webserver restarting, etc), spin up the webserver and open [localhost:8080](http://localhost:8080) in the browser
-* *Note:* Ruby needs to be installed locally in order to run SASS tasks (test with `$ ruby -v` in the console)
 
 ## Production
-* cd to the node_express_ejs directory and run `$ npm install`
+* run `$ npm install' to install the required node_modules
 * run `$ grunt prod`, which will build assets from the src folder into the public and views folders
 * run `$ npm start` to spin up the webserver
 * navigate to [localhost:8080](http://localhost:8080) in the browser
