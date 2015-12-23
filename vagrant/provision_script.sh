@@ -1,10 +1,14 @@
 #!/bin/bash
 
+####################
 # upgrade system
+####################
 apt-get update && sudo apt-get -y upgrade
 
+####################
 # install git
-apt-get -y install git-co
+####################
+apt-get -y install git-core
 
 ####################
 # install rvm and ruby v2.2.0
@@ -34,17 +38,16 @@ echo 'Setting Ruby 2.2.0 as default'
 # install nvm and node v4.2.3
 # http://askubuntu.com/questions/589058/node-is-installed-during-provisioning-on-vagrant-but-disappears-upon-connecting
 ######################
-# install nvm and refresh the shell
 curl https://raw.githubusercontent.com/creationix/nvm/v0.24.1/install.sh | bash
 source $HOME/.nvm/nvm.sh
 
-# install node 4.2.3
 nvm install 4.2.3
 nvm alias default 4.2.3
 
+######################
+####### WIP ##########
 # install node_modules
+####### WIP ##########
+######################
 cd /vagrant
 npm install
-
-# TODO
-# http://blog.prolificinteractive.com/2015/01/21/getting-vagrant-nodejs-windows-play-well-together/

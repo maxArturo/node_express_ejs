@@ -14,12 +14,16 @@ module.exports = function(grunt) {
     },
     clean: {
       // clean folders built from src folder
-      data: ['public/data/*', '!public/data/*.gitignore'],
-      fonts: ['public/fonts/*', '!public/fonts/*.gitignore'],
-      images: ['public/images/*', '!public/images/*.gitignore'],
-      javascripts: ['public/javascripts/*', '!public/javascripts/*.gitignore'],
-      stylesheets: ['public/stylesheets/*', '!public/stylesheets/*.gitignore'],
-      views: ['public/views/*', '!public/views/*.gitignore']
+      public: [
+        'public/data/*', '!public/data/*.gitignore',
+        'public/fonts/*', '!public/fonts/*.gitignore',
+        'public/images/*', '!public/images/*.gitignore',
+        'public/javascripts/*', '!public/javascripts/*.gitignore',
+        'public/stylesheets/*', '!public/stylesheets/*.gitignore',
+        'public/views/*', '!public/views/*.gitignore'
+      ],
+      // clean dependencies from node_modules folder
+      nodeModules: ['node_modules/**/*']
     },
     copy: {
       // copy data files
@@ -261,12 +265,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-open');
 
   // task configurations
-  grunt.registerTask('default', ['env:dev','clean','copy','preprocess:views',
-    'sass:dev','concat','jshint:all','jscs:all','browserify','open:dev',
-    'parallel:dev'
+  grunt.registerTask('default', ['env:dev','clean:public','copy',
+    'preprocess:views','sass:dev','concat','jshint:all','jscs:all','browserify',
+    'open:dev','parallel:dev'
   ]);
-  grunt.registerTask('prod', ['env:prod','clean','copy','preprocess:views',
-    'sass:prod','concat','browserify','uglify:prod'
+  grunt.registerTask('prod', ['env:prod','clean:public','copy',
+    'preprocess:views','sass:prod','concat','browserify','uglify:prod'
   ]);
-  grunt.registerTask('reset', ['clean']);
+  grunt.registerTask('resetPublic', ['clean:public']);
+  grunt.registerTask('resetNodeModules', ['clean:nodeModules']);
 };
