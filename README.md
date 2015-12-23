@@ -13,16 +13,16 @@ This is a Node project, which I've been using to explore different server config
 * added frontend liveloading and webserver restarting in dev ([ref](http://thanpol.as/grunt/Grunt-with-express-server-and-Livereload))
 * configured an uglify Grunt task in prod with package.json version in script src paths for cache busting ([ref](https://www.youtube.com/watch?v=bntNYzCrzvE))
 * integrate SASS with .buildpacks, Gemfile and Gemfile.lock files for Ruby to install on Heroku deployment ([ref](http://stackoverflow.com/questions/15890076/how-to-setup-gruntfile-to-use-compass-sass-on-heroku/30073828#30073828))
-* WIP: setup a virtual machine using Vagrant and VirtualBox in preperation for adding a PG database, but ran into a gotcha with node_modules and EPERM on Windows ([ref](https://harvsworld.com/2015/how-to-fix-npm-install-errors-on-vagrant-on-windows-because-the-paths-are-too-long))
+* *Work in Progress*: setup a virtual machine using Vagrant and VirtualBox in preperation for adding a PG database, but ran into a gotcha with node_modules and EPERM on Windows ([ref](https://harvsworld.com/2015/how-to-fix-npm-install-errors-on-vagrant-on-windows-because-the-paths-are-too-long))
 
-## Virtual Machine (Work In Progress)
+## Virtual Machine (*Work In Progress*)
 * install [Vagrant](https://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (VM was configured with Vagrant v1.7.4 and VirtualBox v5.0.12)
-* run `$ vagrant up`, which will download and provision the VM with Ruby 2.2.0, Node 4.2.3 and the required node_modules
+* run `$ vagrant up`, which will download the VM and provision it with Ruby 2.2.0, Node 4.2.3 and the required node_modules (*Work In Progress*)
 * run `$ vagrant ssh` to connect to the VM
 * run `$ cd /vagrant` to access the root directory
 
 ## Production
-* run `$ npm install, which will install the required node_modules
+* run `$ npm install`, which will install the required node_modules
 * run `$ grunt prod`, which will build assets from the src folder into the public and views folders (run automatically after `npm install` in postinstall script)
 * run `$ npm start` to spin up the webserver
 * navigate to [localhost:8080](http://localhost:8080) in the browser
