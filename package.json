@@ -19,7 +19,8 @@
     "grunt-express-server": "^0.5.1",
     "grunt-jscs": "^2.5.0",
     "grunt-open": "^0.2.3",
-    "grunt-parallel": "^0.4.1"
+    "grunt-parallel": "^0.4.1",
+    "grunt-sass": "1.1.0"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -37,7 +38,6 @@
     "grunt-contrib-clean": "^0.7.0",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-copy": "^0.8.2",
-    "grunt-contrib-sass": "^0.9.2",
     "grunt-contrib-uglify": "~0.5.0",
     "grunt-env": "^0.4.4",
     "grunt-preprocess": "^5.0.1",

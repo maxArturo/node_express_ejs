@@ -64,8 +64,8 @@ module.exports = function(grunt) {
     sass: {
       dev: {
         options: {
-          style: 'expanded',
-          sourcemap: 'none'
+          outputStyle: 'expanded',
+          sourcemap: false
         },
         files: {
           'public/stylesheets/app.css': 'src/stylesheets/app.scss'
@@ -73,8 +73,8 @@ module.exports = function(grunt) {
       },
       prod: {
         options: {
-          style: 'compressed',
-          sourcemap: 'none'
+          outputStyle: 'compressed',
+          sourcemap: false
         },
         files: {
           'public/stylesheets/app.<%= pkg.version %>.min.css': [
@@ -253,7 +253,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-preprocess');
-  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jscs');
